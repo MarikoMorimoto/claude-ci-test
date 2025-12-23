@@ -36,9 +36,11 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: "/review"
-          claude_args: |
+          # Bash 経由で `gh pr list` を呼ぶため、Bash ツールを明示的に許可する
+          claude_args: | 
             --model claude-sonnet-4-5-20250929
             --system-prompt "Please speak in Japanese."
+            --allowedTools Bash,Github
 
   # @claude とコメントすると走る
   call-claude:
@@ -56,3 +58,4 @@ jobs:
           claude_args: |
             --model claude-sonnet-4-5-20250929
             --system-prompt "Please speak in Japanese."
+            --allowedTools Bash,Github
