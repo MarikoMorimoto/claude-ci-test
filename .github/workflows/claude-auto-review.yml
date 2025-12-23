@@ -8,7 +8,7 @@ on:
       - main
 
 permissions:
-  contents: write
+  contents: write # 権限が強いので、main ブランチの同ymlファイルと完全一致していないと動かない！
   pull-requests: write
   id-token: write
 
