@@ -1,0 +1,31 @@
+name: Claude Code PR Review
+
+# see: example https://github.com/anthropics/claude-code-action/blob/main/examples/claude.yml
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  auto-review:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0  # PR の差分ファイルまで取得する
+
+      - name: Run Claude Code Review
+        id: claude
+        uses: anthropics/claude-code-action@v1 # see: https://code.claude.com/docs/ja/github-actions
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: --model claude-sonnet-4-5-20250929
+          prompt: |
+            "Review the PR changes and suggest improvements."
