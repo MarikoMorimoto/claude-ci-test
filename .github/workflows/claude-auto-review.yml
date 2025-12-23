@@ -4,16 +4,24 @@ name: Claude Code PR Review
 
 on:
   pull_request:
-    branches:
-      - main
+    types: [ opened ]
+  issue_comment: # issue または PR のコメントを指す。PR も内部的には Issue 扱い
+    types: [ created ] # 新規コメントでのみトリガー。編集や削除はスルー
+  pull_request_review_comment: # Files changed」タブの行コメント
+    types: [ created ]
+  issues:
+    types: [ opened ]
 
 permissions:
   contents: write # 権限が強いので、main ブランチの同ymlファイルと完全一致していないと動かない！
   pull-requests: write
+  issues: write
   id-token: write
 
 jobs:
+  # プルリクエストでの自動レビュー
   auto-review:
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
@@ -27,6 +35,24 @@ jobs:
         uses: anthropics/claude-code-action@v1 # see: https://code.claude.com/docs/ja/github-actions
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          claude_args: --model claude-sonnet-4-5-20250929
-          prompt: |
-            "Review the PR changes and suggest improvements."
+          prompt: "/review"
+          claude_args: |
+            --model claude-sonnet-4-5-20250929
+            --system-prompt "Please speak in Japanese."
+
+  # @claude とコメントすると走る
+  call-claude:
+    if: |
+        (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+        (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+        (github.event_name == 'issues' && contains(github.event.issue.body, '@claude'))
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Claude Code Review when calling
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: |
+            --model claude-sonnet-4-5-20250929
+            --system-prompt "Please speak in Japanese."
