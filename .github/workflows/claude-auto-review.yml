@@ -55,6 +55,11 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
       - name: Run Claude Code Review when calling
         uses: anthropics/claude-code-action@v1
         with:
