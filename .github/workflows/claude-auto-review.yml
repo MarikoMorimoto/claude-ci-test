@@ -1,13 +1,11 @@
 name: Claude Code PR Review
 
-# see: example https://github.com/anthropics/claude-code-action/blob/main/examples/claude.yml
-
 on:
   pull_request:
     types: [ opened ]
   issue_comment: # issue または PR のコメントを指す。PR も内部的には Issue 扱い
     types: [ created ] # 新規コメントでのみトリガー。編集や削除はスルー
-  pull_request_review_comment: # Files changed」タブの行コメント
+  pull_request_review_comment: # Files changed タブの行コメント
     types: [ created ]
   issues:
     types: [ opened ]
@@ -32,7 +30,7 @@ jobs:
 
       - name: Run Claude Code Review
         id: claude
-        uses: anthropics/claude-code-action@v1 # see: https://code.claude.com/docs/ja/github-actions
+        uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           # /review だけだとPRコメントじゃなくてサマリーだけに結果が出力されたため、プロンプトを追加
