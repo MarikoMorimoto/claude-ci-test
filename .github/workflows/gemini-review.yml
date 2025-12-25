@@ -8,6 +8,12 @@ on:
         description: 'Any additional context from the request'
         required: false
 
+permissions:
+  contents: write # 権限が強いので、main ブランチの同ymlファイルと完全一致していないと動かない！
+  pull-requests: write
+  issues: write
+  id-token: write
+
 concurrency:
   group: '${{ github.workflow }}-review-${{ github.event_name }}-${{ github.event.pull_request.number || github.event.issue.number }}'
   cancel-in-progress: true
