@@ -17,12 +17,6 @@ on:
       - '.github/workflows/gemini-scheduled-triage.yml'
   workflow_dispatch:
 
-permissions:
-  contents: write # 権限が強いので、main ブランチの同ymlファイルと完全一致していないと動かない！
-  pull-requests: write
-  issues: write
-  id-token: write
-
 concurrency:
   group: '${{ github.workflow }}'
   cancel-in-progress: true

@@ -18,12 +18,6 @@ on:
     types:
       - 'created'
 
-permissions:
-  contents: write # 権限が強いので、main ブランチの同ymlファイルと完全一致していないと動かない！
-  pull-requests: write
-  issues: write
-  id-token: write
-
 defaults:
   run:
     shell: 'bash'
