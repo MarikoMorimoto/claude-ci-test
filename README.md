@@ -34,3 +34,5 @@ Claude Codeへ指示する`@claude`という文字列は `.github/workflows/clau
 Gemini CLI によるレビューの結果はイシュー / プルリクエストのコメントに投稿されます。
 
 ### トリガー
+
+#### `@gemini-cli`

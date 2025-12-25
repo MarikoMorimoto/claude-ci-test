@@ -9,6 +9,12 @@ on:
         description: 'Any additional context from the request'
         required: false
 
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  id-token: write
+
 concurrency:
   group: '${{ github.workflow }}-triage-${{ github.event_name }}-${{ github.event.pull_request.number || github.event.issue.number }}'
   cancel-in-progress: true
