@@ -30,3 +30,7 @@ Claude Codeによるレビューの結果はプルリクエストのコメント
 Claude Codeへ指示する`@claude`という文字列は `.github/workflows/claude-auto-review.yml` にて定義されています。ファイル内の記述を変更すれば、他の文字列に変更することも可能です。
 
 ## Gemini CLI
+
+Gemini CLI によるレビューの結果はイシュー / プルリクエストのコメントに投稿されます。
+
+### トリガー
