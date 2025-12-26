@@ -39,6 +39,8 @@ Googleの認証にはGemini API Key、GitHubの認証には[推奨](https://gith
 
 #### `@gemini-cli`
 
-イシュー本文とコメント・プルリクエストのコメントにて `@gemini-cli` を使用すると、Gemini CLIに指示ができます。
+イシュー本文とコメント・プルリクエストのコメントにて `@gemini-cli` を使用すると、Gemini CLIにレビュー依頼ができます。
+
+内部的に、`@gemini-cli` は `@gemini-cli /review`と変換されるようにカスタマイズしています。
 
 レビュー出力の詳細はドキュメントを参照してください。: https://github.com/google-github-actions/run-gemini-cli/tree/v0.1.18/examples/workflows/pr-review#review-output-format
