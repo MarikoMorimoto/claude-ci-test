@@ -37,6 +37,12 @@ Googleの認証にはGemini API Key、GitHubの認証には[推奨](https://gith
 
 ### トリガー
 
+#### プルリクエスト作成
+
+プルリクエストを作成すると、自動でGemini CLIによるレビューが行われます。
+
+Gemini CLIによるレビューの結果はプルリクエストのコメントに投稿されます。
+
 #### `@gemini-cli`
 
 イシュー本文とコメント・プルリクエストのコメントにて `@gemini-cli` を使用すると、Gemini CLIにレビュー依頼ができます。
