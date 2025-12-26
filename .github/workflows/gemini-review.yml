@@ -51,14 +51,6 @@ jobs:
           PULL_REQUEST_NUMBER: '${{ github.event.pull_request.number || github.event.issue.number }}'
           REPOSITORY: '${{ github.repository }}'
           ADDITIONAL_CONTEXT: '${{ inputs.additional_context }}'
-          # 追加（Gemini 側がどの名前を見ていても拾えるようにする）
-          GITHUB_REPOSITORY: '${{ github.repository }}'
-          GITHUB_REPOSITORY_OWNER: '${{ github.repository_owner }}'
-          GITHUB_REPOSITORY_NAME: '${{ github.event.repository.name }}'
-          REPOSITORY_OWNER: '${{ github.repository_owner }}'
-          REPOSITORY_NAME: '${{ github.event.repository.name }}'
-          GITHUB_PULL_REQUEST_NUMBER: '${{ github.event.pull_request.number || github.event.issue.number }}'
-          # 追加ここまで
         with:
           gcp_location: '${{ vars.GOOGLE_CLOUD_LOCATION }}'
           gcp_project_id: '${{ vars.GOOGLE_CLOUD_PROJECT }}'
@@ -111,7 +103,9 @@ jobs:
                   "run_shell_command(echo)",
                   "run_shell_command(grep)",
                   "run_shell_command(head)",
-                  "run_shell_command(tail)"
+                  "run_shell_command(tail)",
+                  "run_shell_command(git)",
+                  "run_shell_command(true)"
                 ]
               }
             }

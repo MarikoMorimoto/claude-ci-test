@@ -87,10 +87,13 @@ jobs:
         env:
           EVENT_TYPE: '${{ github.event_name }}.${{ github.event.action }}'
           REQUEST: '${{ github.event.comment.body || github.event.review.body || github.event.issue.body }}'
+          #  PR（pull_request イベント or issue_comment 上の PR）では "@gemini-cli ..." を /review として扱う
+          IS_PULL_REQUEST: '${{ !!github.event.pull_request || !!github.event.issue.pull_request }}'
         with:
           script: |
             const eventType = process.env.EVENT_TYPE;
             const request = process.env.REQUEST;
+            const isPullRequest = process.env.IS_PULL_REQUEST === 'true';
             core.setOutput('request', request);
 
             if (eventType === 'pull_request.opened') {
@@ -105,7 +108,11 @@ jobs:
               core.setOutput('command', 'triage');
             } else if (request.startsWith("@gemini-cli")) {
               const additionalContext = request.replace(/^@gemini-cli/, '').trim();
-              core.setOutput('command', 'invoke');
+              if (isPullRequest) {
+                core.setOutput('command', 'review');
+              } else {
+                core.setOutput('command', 'invoke');
+              }
               core.setOutput('additional_context', additionalContext);
             } else {
               core.setOutput('command', 'fallthrough');
@@ -116,7 +123,7 @@ jobs:
           GITHUB_TOKEN: '${{ steps.mint_identity_token.outputs.token || secrets.GITHUB_TOKEN || github.token }}'
           ISSUE_NUMBER: '${{ github.event.pull_request.number || github.event.issue.number }}'
           MESSAGE: |-
-            🤖 こんにちは @${{ github.actor }}！ リクエストを受け付けました。処理中です。ログはこちら→ [in the logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+            🤖 こんにちは @${{ github.actor }}さん！ リクエストを受け付けました。処理を始めます。ログの詳細はこちらです: [in the logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
           REPOSITORY: '${{ github.repository }}'
         run: |-
           gh issue comment "${ISSUE_NUMBER}" \
