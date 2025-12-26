@@ -33,6 +33,8 @@ Claude Codeへ指示する`@claude`という文字列は `.github/workflows/clau
 
 Gemini CLI によるレビューの結果はイシュー / プルリクエストのコメントに投稿されます。
 
+Googleの認証にはGemini API Key、GitHubの認証には[推奨](https://github.com/google-github-actions/run-gemini-cli?tab=readme-ov-file#github-authentication)されているCustom GitHub Appを使用しています。
+
 ### トリガー
 
 #### `@gemini-cli`
