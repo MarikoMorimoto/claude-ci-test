@@ -16,6 +16,7 @@ Claude Codeによるレビューの結果はイシュー / プルリクエスト
 - YMLファイルの記載例
   - https://github.com/anthropics/claude-code-action/blob/main/examples/claude.yml
   - https://github.com/anthropics/claude-code-action/blob/main/docs/solutions.md
+    - 実用例、設定例が含まれたガイド。これを参考に設定しています
 
 ### トリガー
 #### プルリクエスト作成
