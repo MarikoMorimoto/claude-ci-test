@@ -11,7 +11,7 @@ on:
     types: [ opened ]
 
 permissions:
-  contents: write # 権限が強いので、main ブランチの同ymlファイルと完全一致していないと動かない！
+  contents: read
   pull-requests: write
   issues: write
   id-token: write
@@ -30,23 +30,35 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v5
         with:
-          fetch-depth: 0  # PR の差分ファイルまで取得する
+          fetch-depth: 1
 
       - name: Run Claude Code Review
-        id: claude
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          track_progress: true
           # /review だけだとPRコメントじゃなくてサマリーだけに結果が出力されたため、プロンプトを追加
           prompt: |
             /review
             
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            Please review this pull request with a focus on:
+            - Code quality and best practices
+            - Potential bugs or issues
+            - Security implications
+            - Performance considerations
+
+            Note: The PR branch is already checked out in the current working directory.
+            
             Please review the changes in this pull request and post your review results as comments on this pull request in japanese.
+            No approval is required to post comments on PR.
           # PRレビューでは GitHub API を使うため Github ツールのみ許可する
           claude_args: | 
             --model claude-sonnet-4-5-20250929
             --system-prompt "Please speak in Japanese."
-            --allowedTools Github
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
 
   # @claude とコメントすると走る
   call-claude:
@@ -81,4 +93,4 @@ jobs:
           claude_args: |
             --model claude-sonnet-4-5-20250929
             --system-prompt "Please speak in Japanese."
-            --allowedTools Github
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"

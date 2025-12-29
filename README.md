@@ -5,18 +5,17 @@
 ## 説明
 ここに生成AIを使ったCI/CDについての説明文を記述します。
 
+## Claude Code
+
+Claude Codeによるレビューの結果はイシュー / プルリクエストのコメントに投稿されます。
+
 ### 参考
 
 - Claude Code GitHub Actions について: https://code.claude.com/docs/ja/github-actions
 - Claude Code GitHub Actions のリポジトリ: https://github.com/anthropics/claude-code-action
-- YMLファイルの記載例: https://github.com/anthropics/claude-code-action/blob/main/examples/claude.yml
-- Gemini CLI GitHub Actionsの紹介: https://blog.google/technology/developers/introducing-gemini-cli-github-actions/
-- Gemini CLI GitHub Actions のリポジトリ: https://github.com/google-github-actions/run-gemini-cli
-
-
-## Claude Code
-
-Claude Codeによるレビューの結果はイシュー / プルリクエストのコメントに投稿されます。
+- YMLファイルの記載例
+  - https://github.com/anthropics/claude-code-action/blob/main/examples/claude.yml
+  - https://github.com/anthropics/claude-code-action/blob/main/docs/solutions.md
 
 ### トリガー
 #### プルリクエスト作成
@@ -35,6 +34,11 @@ Claude Codeへ指示する`@claude`という文字列は `.github/workflows/clau
 Gemini CLI によるレビューの結果はイシュー / プルリクエストのコメントに投稿されます。
 
 Googleの認証にはGemini API Key、GitHubの認証には[推奨](https://github.com/google-github-actions/run-gemini-cli?tab=readme-ov-file#github-authentication)されているCustom GitHub Appを使用しています。
+
+### 参考
+- Gemini CLI GitHub Actionsの紹介: https://blog.google/technology/developers/introducing-gemini-cli-github-actions/
+- Gemini CLI GitHub Actions のリポジトリ: https://github.com/google-github-actions/run-gemini-cli
+
 
 ### トリガー
 
