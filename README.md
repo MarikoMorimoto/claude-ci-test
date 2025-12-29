@@ -13,7 +13,9 @@ Claude Codeによるレビューの結果はイシュー / プルリクエスト
 
 - Claude Code GitHub Actions について: https://code.claude.com/docs/ja/github-actions
 - Claude Code GitHub Actions のリポジトリ: https://github.com/anthropics/claude-code-action
-- YMLファイルの記載例: https://github.com/anthropics/claude-code-action/blob/main/examples/claude.yml
+- YMLファイルの記載例
+  - https://github.com/anthropics/claude-code-action/blob/main/examples/claude.yml
+  - https://github.com/anthropics/claude-code-action/blob/main/docs/solutions.md
 
 ### トリガー
 #### プルリクエスト作成
