@@ -8,9 +8,10 @@
 ### 参考
 
 - Claude Code GitHub Actions について: https://code.claude.com/docs/ja/github-actions
-- Claude Code GitHub Actions のGitHub Actionsのリポジトリ: https://github.com/anthropics/claude-code-action
+- Claude Code GitHub Actions のリポジトリ: https://github.com/anthropics/claude-code-action
 - YMLファイルの記載例: https://github.com/anthropics/claude-code-action/blob/main/examples/claude.yml
-
+- Gemini CLI GitHub Actionsの紹介: https://blog.google/technology/developers/introducing-gemini-cli-github-actions/
+- Gemini CLI GitHub Actions のリポジトリ: https://github.com/google-github-actions/run-gemini-cli
 
 
 ## Claude Code
