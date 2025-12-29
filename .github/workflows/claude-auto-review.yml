@@ -42,11 +42,11 @@ jobs:
             /review
             
             Please review the changes in this pull request and post your review results as comments on this pull request in japanese.
-          # Bash 経由で `gh pr list` を呼ぶため、Bash ツールを明示的に許可する
+          # PRレビューでは GitHub API を使うため Github ツールのみ許可する
           claude_args: | 
             --model claude-sonnet-4-5-20250929
             --system-prompt "Please speak in Japanese."
-            --allowedTools Bash,Github
+            --allowedTools Github
 
   # @claude とコメントすると走る
   call-claude:
@@ -81,4 +81,4 @@ jobs:
           claude_args: |
             --model claude-sonnet-4-5-20250929
             --system-prompt "Please speak in Japanese."
-            --allowedTools Bash,Github
+            --allowedTools Github
