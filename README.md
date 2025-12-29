@@ -44,3 +44,13 @@ Googleの認証にはGemini API Key、GitHubの認証には[推奨](https://gith
 内部的に、`@gemini-cli` は `@gemini-cli /review`と変換されるようにカスタマイズしています。
 
 レビュー出力の詳細はドキュメントを参照してください。: https://github.com/google-github-actions/run-gemini-cli/tree/v0.1.18/examples/workflows/pr-review#review-output-format
+
+## セキュリティと権限制御
+
+このリポジトリの GitHub Actions（Claude / Gemini）は、外部ユーザーによる任意コード実行やリポジトリ改変を防ぐために、以下の制約を設けています。
+
+- Claude Code / Gemini CLI ともに、リポジトリの内部ユーザーのみを対象に動作します
+  - `OWNER` / `MEMBER` / `COLLABORATOR` のいずれかに該当するユーザーのみ、ワークフローが実行されます
+- fork 由来のプルリクエストでは自動レビューが実行されません
+
+そのため、外部コントリビュータや fork リポジトリから、このリポジトリ上で Claude / Gemini による処理を直接走らせることはできません。
