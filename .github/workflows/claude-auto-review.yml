@@ -22,11 +22,11 @@ env:
 jobs:
   # プルリクエストでの自動レビュー
   auto-review:
-    # PR作成者が外部ユーザーの場合と、fork由来のPRでは実行されない
+    # PR作成者が外部ユーザーの場合と、このリポジトリ以外のリポジトリからのPRでは実行されない
     if: |
       github.event_name == 'pull_request' &&
       contains(fromJSON(env.ALLOWED_AUTHOR_ASSOCIATIONS), github.event.pull_request.author_association) &&
-      github.event.pull_request.head.repo.fork == false
+      github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
 
     steps:
@@ -55,7 +55,12 @@ jobs:
   call-claude:
     if: |
       (
-        (github.event_name == 'issue_comment' || github.event_name == 'pull_request_review_comment') &&
+        github.event_name == 'issue_comment' &&
+        contains(github.event.comment.body, '@claude') &&
+        contains(fromJSON(env.ALLOWED_AUTHOR_ASSOCIATIONS), github.event.comment.author_association)
+      ) ||
+      (
+        github.event_name == 'pull_request_review_comment' &&
         contains(github.event.comment.body, '@claude') &&
         contains(fromJSON(env.ALLOWED_AUTHOR_ASSOCIATIONS), github.event.comment.author_association)
       ) ||
